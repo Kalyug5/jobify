@@ -1,8 +1,21 @@
-# React + Vite
+# Jobify - Real-Time Job Search Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Jobify is a cutting-edge job search platform designed specifically for students to access real-time job opportunities uploaded by recruiters. Built using the MERN stack, Jobify provides a seamless experience, allowing users to quickly find and apply to jobs with ease.
 
-Currently, two official plugins are available:
+### Features
+1. Real-Time Job Listings: Stay updated with the latest job postings from recruiters.
+2. Quick Applications: Apply to jobs instantly with your updated resume.
+3. Student-Friendly: Tailored for students seeking entry-level and internship opportunities.
+4. Responsive Design: Enjoy a sleek, user-friendly interface across all devices.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Tech Stack
+1. Frontend: React, Tailwind CSS, ShadCN UI
+2. Backend: Node.js, Express.js
+3. Database: MongoDB
+4. State Management: Redux Toolkit
+5. Deployment: [Yet to be released]
+
+### currently this project is under progree, but you can go through the backend of the project that is almost done -> [backend](https://github.com/Kalyug5/jobify-backend)
+
+- Start the application by `npm start`.
+- Go Through [Redux toolkit](https://redux-toolkit.js.org/) and [React](https://react.dev/) for more info!!
