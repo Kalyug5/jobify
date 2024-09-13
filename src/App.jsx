@@ -9,6 +9,9 @@ import Browse from "./components/pages/jobs/Browse";
 import Profile from "./components/pages/profile/Profile";
 import JobDetails from "./components/pages/jobs/JobDetails";
 import Companies from "./components/pages/admin/Companies";
+import RecruiterJobs from "./components/pages/admin/RecruiterJobs";
+import Applicants from "./components/pages/admin/Applicants";
+import ProctedRoutes from "./components/pages/admin/ProctedRoutes";
 
 const App = () => {
   return (
@@ -23,7 +26,30 @@ const App = () => {
             <Route path="/browse" element={<Browse />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/job/detail/:id" element={<JobDetails />} />
-            <Route path="/recruiter/companies" element={<Companies />} />
+            <Route
+              path="/recruiter/companies"
+              element={
+                <ProctedRoutes>
+                  <Companies />
+                </ProctedRoutes>
+              }
+            />
+            <Route
+              path="/recruiter/jobs"
+              element={
+                <ProctedRoutes>
+                  <RecruiterJobs />
+                </ProctedRoutes>
+              }
+            />
+            <Route
+              path="/applicants/:id"
+              element={
+                <ProctedRoutes>
+                  <Applicants />
+                </ProctedRoutes>
+              }
+            />
           </Route>
         </Routes>
       </BrowserRouter>

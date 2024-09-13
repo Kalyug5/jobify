@@ -18,6 +18,10 @@ const initialState = {
   createCompanyData: "",
   createCompanyLoading: false,
   createCompanyError: null,
+
+  updateComapny: {},
+  updateComapnyLoading: false,
+  updateComapnyError: null,
 };
 
 export const getCompanies = createAsyncThunk("getCompanies", async () => {
@@ -53,6 +57,22 @@ export const getSpecificCompany = createAsyncThunk(
   async (id) => {
     const response = await axios.get(
       `http://localhost:8080/api/v1/company/${id}`
+    );
+    return response.data;
+  }
+);
+
+export const updateCompany = createAsyncThunk(
+  "updateCompany",
+  async ({ id, company }) => {
+    const response = await axios.put(
+      `http://localhost:8080/api/v1/company/${id}`,
+      company,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
     );
     return response.data;
   }
@@ -106,6 +126,16 @@ const adminSlice = createSlice({
       .addCase(createCompany.rejected, (state, action) => {
         state.createCompanyError = action.error.message;
         state.createCompanyLoading = false;
+      })
+      .addCase(updateCompany.pending, (state) => {
+        state.updateComapnyLoading = true;
+      })
+      .addCase(updateCompany.fulfilled, (state, action) => {
+        state.updateComapnyLoading = false;
+        state.updateComapny = action.payload.data;
+      })
+      .addCase(updateCompany.rejected, (state, action) => {
+        state.updateComapnyError = action.error.message;
       });
   },
 });

@@ -43,7 +43,7 @@ const NavBar = () => {
   return (
     <>
       <div className="bg-white px-2">
-        <div className="flex items-center justify-between mx-auto max-w-7xl h-16">
+        <div className="flex items-center gap-2 justify-between mx-auto max-w-7xl h-16">
           <div>
             <h1
               className="text-2xl font-bold cursor-pointer"
@@ -57,15 +57,15 @@ const NavBar = () => {
               {getUserData && getUserData.role === "recruiter" ? (
                 <>
                   <li>
-                    <Link to="/admin/companies">Companies</Link>
+                    <Link to="/recruiter/companies">Companies</Link>
                   </li>
                   <li>
-                    <Link to="/admin/jobs">Jobs</Link>
+                    <Link to="/recruiter/jobs">Jobs</Link>
                   </li>
                 </>
               ) : (
                 <>
-                  <li>
+                  <li className="hidden lg:block sm:block">
                     <Link to="/">Home</Link>
                   </li>
                   <li>

@@ -1,8 +1,17 @@
 import { Button } from "@/components/ui/button";
 import { Search } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const HeroSection = () => {
+  const [search, setSearch] = useState("");
+  const navigate = useNavigate();
+
+  const handleSearch = () => {
+    if (search.length > 0) {
+      navigate(`/browse?query=${search}`);
+    }
+  };
   return (
     <div>
       <section className="w-full pt-12 md:pt-18 lg:pt-12">
@@ -24,13 +33,17 @@ const HeroSection = () => {
               </p>
               <div className="space-x-4">
                 <div className="flex w-[100%]  border border-gray-300  rounded-sm items-center gap-4 mx-auto">
-                  <Button className="rounded-l-sm rounded-r-none bg-[#000080]">
+                  <Button
+                    className="rounded-l-sm rounded-r-none bg-[#000080]"
+                    onClick={handleSearch}
+                  >
                     <Search className="h-5 w-5" />
                   </Button>
                   <input
                     type="text"
                     placeholder="Find your dream jobs"
                     className="outline-none border-none w-full"
+                    onChange={(e) => setSearch(e.target.value)}
                   />
                 </div>
               </div>

@@ -14,6 +14,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Edit2, MoreHorizontal } from "lucide-react";
+import EditCompany from "./EditCompany";
 
 const Companies = () => {
   const [jobCount, setjobCount] = useState({});
@@ -23,11 +24,18 @@ const Companies = () => {
     getCompanyDetailsLoading,
     getCompanyDetailsError,
   } = useSelector((state) => state.admin);
-
-  console.log(getCompanyDetails);
-  console.log(getCompanyDetailsLoading);
+  const [editCompany, seteditCompany] = useState({
+    company: {},
+    active: false,
+  });
 
   const dispatch = useDispatch();
+
+  const editHandler = (company) => {
+    seteditCompany((prev) => {
+      return { company: company, active: !prev.active };
+    });
+  };
   useEffect(() => {
     const fetchCompanies = async () => {
       try {
@@ -52,8 +60,13 @@ const Companies = () => {
     const loadJobs = async () => {
       const counts = {};
       for (const item of getCompanyDetails) {
-        const count = await fetchSpecificJobs(item._id);
-        counts[item._id] = count;
+        try {
+          const count = await fetchSpecificJobs(item._id);
+
+          counts[item._id] = count;
+        } catch (error) {
+          counts[item._id] = 0;
+        }
       }
       setjobCount(counts);
     };
@@ -64,6 +77,7 @@ const Companies = () => {
 
   const fetchSpecificJobs = async (id) => {
     const response = await dispatch(getCompanyJob(id)).unwrap(id);
+
     if (response.success) {
       return response.jobs.length;
     }
@@ -107,7 +121,7 @@ const Companies = () => {
                   <div className="flex gap-2">
                     No of Jobs Opening{" "}
                     <span className="text-[#2687e7] font-bold text-s">
-                      {jobCount[item._id] || 0}
+                      {jobCount[item._id]}
                     </span>
                   </div>
                   <Popover>
@@ -115,7 +129,10 @@ const Companies = () => {
                       <MoreHorizontal />
                     </PopoverTrigger>
                     <PopoverContent className="w-32">
-                      <div className="flex items-center gap-2 w-fit cursor-pointer">
+                      <div
+                        className="flex items-center gap-2 w-fit cursor-pointer"
+                        onClick={() => editHandler(item)}
+                      >
                         <Edit2 className="w-4" />
                         <span>Edit</span>
                       </div>
@@ -130,6 +147,7 @@ const Companies = () => {
         )}
       </div>
       <CreateCompany open={open} setOpen={setOpen} />
+      <EditCompany editCompany={editCompany} seteditCompany={seteditCompany} />
     </>
   );
 };
