@@ -8,6 +8,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { filterByLocation } from "./jobSlice";
 
 const fitlerData = [
   {
@@ -32,6 +34,7 @@ const fitlerData = [
 ];
 
 const FilterJobs = () => {
+  const dispatch = useDispatch();
   const [filterOption, setFilterOption] = useState({
     location: "",
     domain: [],
@@ -48,6 +51,7 @@ const FilterJobs = () => {
             : [...prevFilters.domain, value],
         };
       } else if (type === "location") {
+        dispatch(filterByLocation({ data: value }));
         return {
           ...prevFilters,
           location: value,

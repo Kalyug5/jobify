@@ -6,6 +6,8 @@ const initialState = {
   jobDataLoading: false,
   jobDataError: null,
 
+  filteredData: [],
+
   getOneJobData: {},
   getOneJobLoadingData: false,
   getOneJobError: {},
@@ -49,7 +51,15 @@ export const getApplyJobs = createAsyncThunk(
 const jobSlice = createSlice({
   name: "jobSclice",
   initialState: initialState,
-  reducers: {},
+  reducers: {
+    filterByLocation: (state, action) => {
+      const { data } = action.payload;
+
+      state.filteredData = state.jobData.filter((item) =>
+        item.location.toLowerCase().includes(data.toLowerCase())
+      );
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getJob.pending, (state) => {
@@ -59,6 +69,7 @@ const jobSlice = createSlice({
         console.log(action.payload);
 
         state.jobData = action.payload.jobs;
+        state.filteredData = state.jobData;
         state.jobDataLoading = false;
         state.jobDataError = null;
       })
@@ -104,5 +115,5 @@ const jobSlice = createSlice({
   },
 });
 
-export const {} = jobSlice.actions;
+export const { filterByLocation } = jobSlice.actions;
 export default jobSlice.reducer;
