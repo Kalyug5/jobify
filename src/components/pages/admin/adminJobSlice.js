@@ -1,6 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
+const URL = import.meta.env.VITE_APP_SERVER_URI;
+
 const initialState = {
   getAdminJobsDetails: [],
   getAdminJobsLoading: false,
@@ -19,10 +21,8 @@ const initialState = {
   createJobError: null,
 };
 
-const url = process.env.REACT_APP_URI;
-
 export const getAdminJobs = createAsyncThunk("admin/getAdminJobs", async () => {
-  const response = await axios.get(`${url}/api/v1/job/admin`);
+  const response = await axios.get(`${URL}/api/v1/job/admin`);
   return response.data;
 });
 
@@ -30,7 +30,7 @@ export const getApplicants = createAsyncThunk(
   "admin/getApplicants",
   async (id) => {
     const response = await axios.get(
-      `${url}/api/v1/application/${id}/applicants`
+      `${URL}/api/v1/application/${id}/applicants`
     );
     return response.data;
   }
@@ -40,7 +40,7 @@ export const updateApplicant = createAsyncThunk(
   "admin/updateApplicant",
   async ({ id, status }) => {
     const response = await axios.post(
-      `${url}/api/v1/application/status/${id}/update`,
+      `${URL}/api/v1/application/status/${id}/update`,
       {
         status: status,
       }
@@ -52,7 +52,7 @@ export const updateApplicant = createAsyncThunk(
 export const createJobs = createAsyncThunk(
   "admin/createJob",
   async (jobData) => {
-    const response = await axios.post(`${url}/api/v1/job/`, jobData);
+    const response = await axios.post(`${URL}/api/v1/job/`, jobData);
     return response.data;
   }
 );

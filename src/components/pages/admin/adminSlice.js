@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 axios.defaults.withCredentials = true;
+const URL = import.meta.env.VITE_APP_SERVER_URI;
 
 const initialState = {
   getCompanyDetails: [],
@@ -24,15 +25,13 @@ const initialState = {
   updateComapnyError: null,
 };
 
-const url = process.env.REACT_APP_URI;
-
 export const getCompanies = createAsyncThunk("getCompanies", async () => {
-  const response = await axios.get(`${url}/api/v1/company/get`);
+  const response = await axios.get(`${URL}/api/v1/company/get`);
   return response.data;
 });
 
 export const getCompanyJob = createAsyncThunk("getCompanyJob", async (id) => {
-  const response = await axios.get(`${url}/api/v1/job/companyjob/${id}`);
+  const response = await axios.get(`${URL}/api/v1/job/companyjob/${id}`);
   return response?.data;
 });
 
@@ -40,7 +39,7 @@ export const createCompany = createAsyncThunk(
   "createCompany",
   async (company) => {
     const response = await axios.post(
-      `${url}/api/v1/company/register`,
+      `${URL}/api/v1/company/register`,
       company,
       {
         headers: {
@@ -55,7 +54,7 @@ export const createCompany = createAsyncThunk(
 export const getSpecificCompany = createAsyncThunk(
   "getcompanyById",
   async (id) => {
-    const response = await axios.get(`${url}/api/v1/company/${id}`);
+    const response = await axios.get(`${URL}/api/v1/company/${id}`);
     return response.data;
   }
 );
@@ -63,7 +62,7 @@ export const getSpecificCompany = createAsyncThunk(
 export const updateCompany = createAsyncThunk(
   "updateCompany",
   async ({ id, company }) => {
-    const response = await axios.put(`${url}/api/v1/company/${id}`, company, {
+    const response = await axios.put(`${URL}/api/v1/company/${id}`, company, {
       headers: {
         "Content-Type": "multipart/form-data",
       },

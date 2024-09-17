@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { toast } from "sonner";
+
+const URL = import.meta.env.VITE_APP_SERVER_URI;
 
 axios.defaults.withCredentials = true;
 
@@ -26,27 +27,25 @@ const initialState = {
   updateUserDataError: {},
 };
 
-const url = process.env.REACT_APP_URI;
-
 export const signUp = createAsyncThunk("signUp/signUp", async (data) => {
-  const response = await axios.post(`${url}/api/v1/user/register`, data, {
+  const response = await axios.post(`${URL}/api/v1/user/register`, data, {
     headers: { "Content-Type": "multipart/form-data" },
   });
   return response?.data;
 });
 
 export const login = createAsyncThunk("login", async (data) => {
-  const response = await axios.post(`${url}/api/v1/user/login`, data);
+  const response = await axios.post(`${URL}/api/v1/user/login`, data);
   return response.data;
 });
 
 export const getUser = createAsyncThunk("getUser/getUser", async () => {
-  const response = await axios.get(`${url}/api/v1/user/getuser`);
+  const response = await axios.get(`${URL}/api/v1/user/getuser`);
   return response.data;
 });
 
 export const logout = createAsyncThunk("logout/logout", async () => {
-  const response = await axios.get(`${url}/api/v1/user/logout`);
+  const response = await axios.get(`${URL}/api/v1/user/logout`);
   return response.data;
 });
 
@@ -54,7 +53,7 @@ export const updateUser = createAsyncThunk(
   "updateUser/updateUser",
   async (data) => {
     const response = await axios.post(
-      `${url}/api/v1/user/profile/update`,
+      `${URL}/api/v1/user/profile/update`,
       data,
       {
         headers: { "Content-Type": "multipart/form-data" },
