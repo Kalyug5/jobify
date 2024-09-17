@@ -21,29 +21,27 @@ const initialState = {
   appliedJobLoadingError: {},
 };
 
+const url = process.env.REACT_APP_URI;
+
 export const getJob = createAsyncThunk("job/getJob", async () => {
-  const response = await axios.get("http://localhost:8080/api/v1/job/get");
+  const response = await axios.get(`${url}/api/v1/job/get`);
   return response.data;
 });
 
 export const getOneJob = createAsyncThunk("job/getOneJob", async (id) => {
-  const response = await axios.get(`http://localhost:8080/api/v1/job/${id}`);
+  const response = await axios.get(`${url}/api/v1/job/${id}`);
   return response.data;
 });
 
 export const applyJob = createAsyncThunk("applyJob/apply", async (data) => {
-  const response = await axios.get(
-    `http://localhost:8080/api/v1/application/apply/${data}`
-  );
+  const response = await axios.get(`${url}/api/v1/application/apply/${data}`);
   return response.data;
 });
 
 export const getApplyJobs = createAsyncThunk(
   "applyJobs/getApplyJobs",
   async () => {
-    const response = await axios.get(
-      "http://localhost:8080/api/v1/application/get"
-    );
+    const response = await axios.get(`${url}/api/v1/application/get`);
     return response.data;
   }
 );
